@@ -3,4 +3,4 @@ pandas
 lime
 gdown
 keras
-tensorflow
+tensorflow==2.15.x
