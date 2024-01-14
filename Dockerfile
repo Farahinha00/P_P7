@@ -1,17 +1,18 @@
-# lightweight python
-FROM tensorflow/tensorflow:latest-gpu
+# Utilise une image Python officielle
+FROM python:3.8
 
-RUN apt-get update
+# Définit le répertoire de travail
+WORKDIR /app
 
-# Copy local code to the container image.
-ENV APP_HOME /app
-WORKDIR $APP_HOME
-COPY . ./
+# Copie le fichier requirements.txt dans le conteneur
+COPY requirements.txt .
 
-RUN ls -la $APP_HOME/
-RUN apt-get update
+# Installe les dépendances
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Install dependencies
-RUN pip install -r requirements.txt
+# Copie le reste des fichiers de l'application dans le conteneur
+COPY . .
 
-RUN python -m spacy download en_core_web_sm
+# Commande pour lancer l'application
+CMD ["python", "app.py"]
+
