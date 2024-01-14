@@ -1,16 +1,1 @@
-name: Install azure-cli
-description: Installs the latest version of azure-cli. Helpful when running on a self-hosted, or to try the pipeline locally using act.
-author: pietrobolcato
-branding:
-  icon: box
-  color: blue
-runs:
-  using: composite
-  steps:
-    - name: install azure-cli
-      env:
-        installer_script_path: ${{ github.action_path }}/install_cli.sh
-      run: |
-        chmod +x $installer_script_path
-        bash $installer_script_path
-      shell: bash
+
