@@ -1,8 +1,3 @@
-!pip install joblib
-!pip install pandas
-!pip install lime
-!pip install gdown
-
 import tensorflow as tf
 import pandas as pd
 import numpy as np
