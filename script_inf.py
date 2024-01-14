@@ -6,22 +6,7 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 from keras.models import Sequential, Model
 from keras.layers import Dense, Embedding, LSTM, Dropout, Flatten, SimpleRNN
 import joblib
-import lime
-from lime import lime_text
-from sklearn.pipeline import make_pipeline
-from lime.lime_text import LimeTextExplainer
 
-import gdown
-
-url_model = 'https://drive.google.com/file/d/1xLUbmweUrzLHSeD-oA6JCn0p_7MMG1rw/view?usp=sharing'
-url_tokenizer = 'https://drive.google.com/file/d/1T1TyJIXPg_JIiiGW6wSZId2rbqQVFtfr/view?usp=sharing'
-
-gdown.download(url_model, './Common/mon_best_model.h5', quiet=False)
-gdown.download(url_tokenizer, './Common/tokenizer.pkl', quiet=False)
-
-# Charger le modèle pré-entraîné
-best_model = tf.keras.models.load_model('./Common/mon_best_model.h5')
-tokenizer = joblib.load('./Common/tokenizer.pkl')
 
 def tokenize_data(data,tokenizer,maxlen=None):
     X = tokenizer.texts_to_sequences(data)
