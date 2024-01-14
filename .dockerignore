@@ -12,4 +12,4 @@ COPY . .
 
 EXPOSE 3100
 
-CMD ["gunicorn", "app:app"]
+CMD ["python", "app.py"]
