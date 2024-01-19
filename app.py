@@ -32,9 +32,9 @@ def init():
         print(f"Erreur lors du chargement du modèle Keras : {e}")
 
 # Événement de démarrage pour exécuter la fonction init
-@app.on_event("startup")
-async def startup_event():
-    init()
+#@app.on_event("startup")
+#async def startup_event():
+    #init()
 
 @app.post("/predict/{raw_data}")
 async def predict(raw_data: str):
