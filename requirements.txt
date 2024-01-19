@@ -4,7 +4,7 @@ gunicorn
 joblib
 pandas
 keras
-tensorflow==2.15
+tensorflow==2.15.0
 azure-storage-blob
 azureml.core
 azureml-mlflow
