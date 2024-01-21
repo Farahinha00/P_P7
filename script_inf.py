@@ -6,8 +6,6 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 from keras.models import Sequential, Model
 from keras.layers import Dense, Embedding, LSTM, Dropout, Flatten, SimpleRNN
 import joblib
-import lime
-from lime import lime_text
 from sklearn.pipeline import make_pipeline
 
 def tokenize_data(data,tokenizer,maxlen=None):
