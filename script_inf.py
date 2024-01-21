@@ -9,7 +9,6 @@ import joblib
 import lime
 from lime import lime_text
 from sklearn.pipeline import make_pipeline
-from lime.lime_text import LimeTextExplainer
 
 def tokenize_data(data,tokenizer,maxlen=None):
     X = tokenizer.texts_to_sequences(data)
