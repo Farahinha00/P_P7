@@ -1,5 +1,5 @@
 # Utilise une image Python officielle
-FROM python:3.12
+FROM python:3.9
 
 # Définit le répertoire de travail dans le conteneur
 ENV APP_HOME /app
