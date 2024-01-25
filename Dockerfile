@@ -1,18 +1,17 @@
-# Utilise une image Python officielle
+# lightweight python
+FROM tensorflow/tensorflow:latest-gpu
 FROM python:3.9
+RUN apt-get update
 
-# Définit le répertoire de travail dans le conteneur
+# Copy local code to the container image.
 ENV APP_HOME /app
 WORKDIR $APP_HOME
-
-# Copie les fichiers de l'application dans le conteneur
 COPY . ./
 
-# Installe les dépendances
-RUN pip install --no-cache-dir -r requirements.txt
+RUN ls -la $APP_HOME/
+RUN apt-get update
 
-# Expose le port (optionnel pour Azure mais bon pour la pratique)
-EXPOSE 8000
+# Install dependencies
+RUN pip install -r requirements.txt
 
-# Remplacez la ligne ci-dessous par la commande appropriée pour votre application
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "${PORT:-8000}"]
+RUN python -m spacy download en_core_web_sm
