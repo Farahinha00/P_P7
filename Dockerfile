@@ -11,4 +11,8 @@ COPY . ./
 # Installe les dépendances
 RUN pip install --no-cache-dir -r requirements.txt
 
-CMD ["python", "app.py"]
+# Expose le port (optionnel pour Azure mais bon pour la pratique)
+EXPOSE 8000
+
+# Remplacez la ligne ci-dessous par la commande appropriée pour votre application
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "${PORT:-8000}"]
