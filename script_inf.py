@@ -6,7 +6,6 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 from keras.models import Sequential, Model
 from keras.layers import Dense, Embedding, LSTM, Dropout, Flatten, SimpleRNN
 import joblib
-from sklearn.pipeline import make_pipeline
 
 def tokenize_data(data,tokenizer,maxlen=None):
     X = tokenizer.texts_to_sequences(data)
