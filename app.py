@@ -36,10 +36,11 @@ app = FastAPI()
 # async def startup_event():
 #     init()
 
-# @app.post("/predict/{raw_data}")
+@app.post("/predict/{raw_data}")
 # async def predict(raw_data: str):
     # Effectuer l'inférence
  #    prediction = make_inference(raw_data,tokenise,model)
 
     # Retourner la prédiction
-  #   return {"Prédiction"}
+   return 0
+#{"Prédiction"}
