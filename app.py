@@ -4,13 +4,20 @@ import joblib
 from azureml.core.model import Model
 from azureml.core import Workspace
 from script_inf import make_inference  # Assurez-vous que script_inf.py est dans le même dossier
+from azureml.core.authentication import InteractiveLoginAuthentication
 
+interactive_auth = InteractiveLoginAuthentication(tenant_id="34a698d1-a110-4235-838a-1a0395d19f0f")
+
+ws = Workspace(subscription_id="eb2bd3ed-c494-45b0-85b9-1aa484c46464",
+               resource_group="oc",
+               workspace_name="OC_P7",
+               auth=interactive_auth)
 app = FastAPI()
 
 # Déclaration des variables globales
 model = None
 tokenise = None
-ws = Workspace.from_config()
+#ws = Workspace.from_config()
 
 #def init():
 #    global model
