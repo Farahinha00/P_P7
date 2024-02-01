@@ -17,7 +17,7 @@ ws = Workspace.from_config()
 #    global tokenise
 
     # Obtenez le chemin des modèles stockés dans Azure ML
-best_model_path = Model.get_model_path(model_name='best_model', version=1, _workspace=ws)
+best_model_path = Model.get_model_path(model_name='mon_best_model', version=1, _workspace=ws)
 tokenizer_path = Model.get_model_path(model_name='tokenizer', version=1, _workspace=ws)
 
 #    try:
