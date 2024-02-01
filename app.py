@@ -4,13 +4,29 @@ import joblib
 from azureml.core.model import Model
 from azureml.core import Workspace
 from script_inf import make_inference  # Assurez-vous que script_inf.py est dans le même dossier
-
+from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
 app = FastAPI()
 
 # Déclaration des variables globales
 model = None
 tokenise = None
-ws = Workspace.from_config()
+#ws = Workspace.from_config()
+
+# Initialize a BlobServiceClient using a connection string
+connect_str = "+37I7IMHXMh1MDLcA/Q32/mV8LL4pk5Ls0unKB0bS2cohC7nze3Z7y5CPWYyZvAaRvUPAKupPZDp+ASt35N8vQ=="
+blob_service_client = BlobServiceClient.from_connection_string(connect_str)
+
+# Access a specific container
+container_name = "ocp73883544777"
+container_client = blob_service_client.get_container_client(container_name)
+
+# Access a blob within the container
+blob_name = "mon_best_model.h5"
+blob_client = container_client.get_blob_client(blob_name)
+
+# Download the blob's content
+with open("best_model", "wb") as download_file:
+    download_file.write(blob_client.download_blob().readall())
 
 #def init():
 #    global model
