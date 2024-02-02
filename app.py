@@ -4,17 +4,22 @@ import joblib
 from azureml.core.model import Model
 from azureml.core import Workspace
 from script_inf import make_inference  # Assurez-vous que script_inf.py est dans le même dossier
-from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
+#from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
+from urllib.request import urlretrieve
 app = FastAPI()
 
+# Define the URL and the filename
+url = "https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T121951-1176e6b9/tokenizer.pkl"
+filename = "tokenizer"
+
+# Download the file
+urlretrieve(url, filename)
 
 
 # Déclaration des variables globales
-model = None
-tokenise = None
+#model = None
+#tokenise = None
 #ws = Workspace.from_config()
-
-
 
 
 #def init():
@@ -27,7 +32,7 @@ tokenise = None
 
 #    try:
 #        # Chargez le tokenizer
-#        tokenise = joblib.load(tokenizer_path)
+#        tokenise = joblib.load(tokenizer)
 #    except Exception as e:
 #        print(f"Erreur lors du chargement du tokenizer : {e}")
 #        
