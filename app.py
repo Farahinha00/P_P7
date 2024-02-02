@@ -9,16 +9,18 @@ from urllib.request import urlretrieve
 app = FastAPI()
 
 # Define the URL and the filename
-url = "https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T121951-1176e6b9/tokenizer.pkl"
-filename = "tokenizer"
-
+url1 = "https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T121951-1176e6b9/tokenizer.pkl"
+filename1 = "tokenizer"
+# Define the URL and the filename
+url2 = "https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T121943-79cc729e/mon_best_model.h5"
+filename2 = "mon_best_model"
 # Download the file
-urlretrieve(url, filename)
+urlretrieve(url2, filename2)
 
 
 # Déclaration des variables globales
-#model = None
-#tokenise = None
+model = None
+tokenise = None
 #ws = Workspace.from_config()
 
 
@@ -38,7 +40,7 @@ urlretrieve(url, filename)
 #        
 #    try:
 #        # Chargez le modèle Keras
-#        model = tf.keras.models.load_model(best_model_path)
+#        model = tf.keras.models.load_model(mon_best_model)
 #    except Exception as e:
 #        print(f"Erreur lors du chargement du modèle Keras : {e}")
 
