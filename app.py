@@ -7,21 +7,7 @@ from script_inf import make_inference  # Assurez-vous que script_inf.py est dans
 from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
 app = FastAPI()
 
-storage_account_key = "+37I7IMHXMh1MDLcA/Q32/mV8LL4pk5Ls0unKB0bS2cohC7nze3Z7y5CPWYyZvAaRvUPAKupPZDp+ASt35N8vQ=="
-storage_account_name = "ocp73883544777"
-connection_string = "DefaultEndpointsProtocol=https;AccountName=ocp73883544777;AccountKey=z0v5e/JORvhKJFS/YD9AbYq5LOUz940m9IuCvVcddTP5JnCQA/F5cTtrJKll8gg16qBlexJenvzY+AStJe83Og==;EndpointSuffix=core.windows.net"
-container_name = "azureml"
 
-def uploadToBlobStorage(file_path,file_name):
-   blob_service_client = BlobServiceClient.from_connection_string(connection_string)
-   blob_client = blob_service_client.get_blob_client(container=container_name, blob=file_name)
-   with open(file_path,”rb”) as data:
-      blob_client.upload_blob(data)
-      print(f”Uploaded {file_name}.”)
-
-# calling a function to perform upload
-uploadToBlobStorage('mon_best_model','best_model_path')
-uploadToBlobStorage('tokenizer','tokenizer_path')
 
 # Déclaration des variables globales
 model = None
