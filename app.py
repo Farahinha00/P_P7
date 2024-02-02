@@ -24,31 +24,31 @@ tokenise = None
 #ws = Workspace.from_config()
 
 
-#def init():
-#    global model
-#    global tokenise
+def init():
+    global model
+    global tokenise
 
     # Obtenez le chemin des modèles stockés dans Azure ML
-#    best_model_path = Model.get_model_path(model_name='mon_best_model', version=1, _workspace=ws)
+ #   best_model_path = Model.get_model_path(model_name='mon_best_model', version=1, _workspace=ws)
 #    tokenizer_path = Model.get_model_path(model_name='tokenizer', version=1, _workspace=ws)
 
-#    try:
+    try:
 #        # Chargez le tokenizer
-#        tokenise = joblib.load(tokenizer)
-#    except Exception as e:
-#        print(f"Erreur lors du chargement du tokenizer : {e}")
-#        
-#    try:
-#        # Chargez le modèle Keras
-#        model = tf.keras.models.load_model(mon_best_model)
-#    except Exception as e:
-#        print(f"Erreur lors du chargement du modèle Keras : {e}")
+        tokenise = joblib.load(tokenizer)
+    except Exception as e:
+        print(f"Erreur lors du chargement du tokenizer : {e}")
+        
+    try:
+        # Chargez le modèle Keras
+        model = tf.keras.models.load_model(mon_best_model)
+    except Exception as e:
+        print(f"Erreur lors du chargement du modèle Keras : {e}")
 
 
 # Événement de démarrage pour exécuter la fonction init
-# @app.on_event("startup")
-# async def startup_event():
-#     init()
+ @app.on_event("startup")
+ async def startup_event():
+     init()
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
