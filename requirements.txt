@@ -8,4 +8,4 @@ tensorflow==2.15.0 -cpu
 azure-storage-blob
 azureml.core
 azureml-mlflow
-
+python-multipart
