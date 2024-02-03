@@ -53,9 +53,10 @@ async def startup_event():
 #async def root():
 #    return {"message": "Hello World"}
 @app.post("/predict/{raw_data}")
- async def predict(raw_data: str):
+async def predict(raw_data: str):
     # Effectuer l'inférence
-     prediction = make_inference(raw_data,tokenise,model)
+    prediction = make_inference(raw_data, tokenise, model)
 
     # Retourner la prédiction
-   return {"Prédiction " : prediction}
+    return {"Prédiction": prediction}
+
