@@ -45,9 +45,7 @@ def init():
 
 
 # Événement de démarrage pour exécuter la fonction init
-@app.on_event("startup")
-async def startup_event():
-    init()
+
 #@app.get("/")
 #async def root():
 #    return {"message": "Hello World"}
@@ -63,7 +61,9 @@ async def get_form():
         </body>
     </html>
     """
-
+@app.on_event("startup")
+async def startup_event():
+    init()
 @app.post("/predict")
 async def predict(raw_data: str = Form(...)):
     prediction = make_inference(raw_data, tokenise, model)
