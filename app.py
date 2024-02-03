@@ -1,8 +1,7 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Form
+from fastapi.responses import HTMLResponse
 import tensorflow as tf
 import joblib
-from azureml.core.model import Model
-from azureml.core import Workspace
 from script_inf import make_inference  # Assurez-vous que script_inf.py est dans le même dossier
 #from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
 from urllib.request import urlretrieve
@@ -52,11 +51,28 @@ async def startup_event():
 #@app.get("/")
 #async def root():
 #    return {"message": "Hello World"}
-@app.post("/predict/{raw_data}")
-async def predict(raw_data: str):
-    # Effectuer l'inférence
+@app.get("/", response_class=HTMLResponse)
+async def get_form():
+    return """
+    <html>
+        <body>
+            <form action="/predict" method="post">
+                <input type="text" name="raw_data" />
+                <input type="submit" />
+            </form>
+        </body>
+    </html>
+    """
+
+@app.post("/predict")
+async def predict(raw_data: str = Form(...)):
     prediction = make_inference(raw_data, tokenise, model)
+    return {"Prédiction": prediction}
+#@app.post("/predict/{raw_data}")
+#async def predict(raw_data: str):
+#    # Effectuer l'inférence
+ #   prediction = make_inference(raw_data, tokenise, model)
 
     # Retourner la prédiction
-    return {"Prédiction": prediction}
+#    return {"Prédiction": prediction}
 
