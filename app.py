@@ -33,13 +33,13 @@ def init():
 
     try:
 #        # Chargez le tokenizer
-        tokenise = joblib.load(tokenizer)
+        tokenise = joblib.load(filename1)
     except Exception as e:
         print(f"Erreur lors du chargement du tokenizer : {e}")
         
     try:
         # Chargez le modèle Keras
-        model = tf.keras.models.load_model(mon_best_model)
+        model = tf.keras.models.load_model(mfilename2)
     except Exception as e:
         print(f"Erreur lors du chargement du modèle Keras : {e}")
 
