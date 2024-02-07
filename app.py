@@ -15,7 +15,7 @@ url2 = "https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T
 filename2 = "mon_best_model"
 # Download the file
 urlretrieve(url2, filename2)
-
+urlretrieve(url1, filename1)
 
 # Déclaration des variables globales
 model = None
@@ -39,16 +39,19 @@ def init():
         
     try:
         # Chargez le modèle Keras
-        model = tf.keras.models.load_model(mfilename2)
+        model = tf.keras.models.load_model(filename2)
     except Exception as e:
         print(f"Erreur lors du chargement du modèle Keras : {e}")
 
 
 # Événement de démarrage pour exécuter la fonction init
-
+@app.on_event("startup")
+async def startup_event():
+    init()
 #@app.get("/")
 #async def root():
 #    return {"message": "Hello World"}
+
 @app.get("/", response_class=HTMLResponse)
 async def get_form():
     return """
@@ -61,9 +64,7 @@ async def get_form():
         </body>
     </html>
     """
-@app.on_event("startup")
-async def startup_event():
-    init()
+    
 @app.post("/predict")
 async def predict(raw_data: str = Form(...)):
     prediction = make_inference(raw_data, tokenise, model)
