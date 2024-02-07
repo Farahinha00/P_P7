@@ -76,18 +76,6 @@ async def predict(raw_data: str = Form(...)):
         sentiment = "neutral"
 
     response = f'The tweet "{raw_data}" is {sentiment}.'
-    # Provide a form to try another tweet
-    response += """
-        <html>
-            <body>
-                <p>{}</p>
-                <form action="/predict" method="post">
-                    <input type="text" name="raw_data" />
-                    <input type="submit" value="Try another tweet" />
-                </form>
-            </body>
-        </html>
-    """.format(response)
 
     return response
 
