@@ -27,10 +27,6 @@ def init():
     global model
     global tokenise
 
-    # Obtenez le chemin des modèles stockés dans Azure ML
- #   best_model_path = Model.get_model_path(model_name='mon_best_model', version=1, _workspace=ws)
-#    tokenizer_path = Model.get_model_path(model_name='tokenizer', version=1, _workspace=ws)
-
     try:
 #        # Chargez le tokenizer
         tokenise = joblib.load(filename1)
@@ -48,9 +44,7 @@ def init():
 @app.on_event("startup")
 async def startup_event():
     init()
-#@app.get("/")
-#async def root():
-#    return {"message": "Hello World"}
+
 
 @app.get("/", response_class=HTMLResponse)
 async def get_form():
@@ -65,15 +59,35 @@ async def get_form():
     </html>
     """
     
-@app.post("/predict")
-async def predict(raw_data: str = Form(...)):
-    prediction = make_inference(raw_data, tokenise, model)
-    return {"Prédiction": prediction}
-#@app.post("/predict/{raw_data}")
-#async def predict(raw_data: str):
-#    # Effectuer l'inférence
- #   prediction = make_inference(raw_data, tokenise, model)
-
-    # Retourner la prédiction
+#@app.post("/predict")
+#async def predict(raw_data: str = Form(...)):
+#    prediction = make_inference(raw_data, tokenise, model)
 #    return {"Prédiction": prediction}
+
+
+@app.post("/predict", response_class=HTMLResponse)
+async def predict(raw_data: str = Form(...)):
+    prediction = make_inference(raw_data, tokenise, model)[0][0]  # assuming make_inference returns a prediction in this format
+    if prediction < 0.4:
+        sentiment = "good"
+    elif prediction > 0.6:
+        sentiment = "bad"
+    else:
+        sentiment = "neutral"
+
+    response = f'The tweet "{raw_data}" is {sentiment}.'
+    # Provide a form to try another tweet
+    response += """
+        <html>
+            <body>
+                <p>{}</p>
+                <form action="/predict" method="post">
+                    <input type="text" name="raw_data" />
+                    <input type="submit" value="Try another tweet" />
+                </form>
+            </body>
+        </html>
+    """.format(response)
+
+    return response
 
