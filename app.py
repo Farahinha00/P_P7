@@ -21,8 +21,6 @@ urlretrieve(url1, filename1)
 model = None
 tokenise = None
 #ws = Workspace.from_config()
-
-
 def init():
     global model
     global tokenise
@@ -43,7 +41,10 @@ def init():
 # Événement de démarrage pour exécuter la fonction init
 
 
-
+@app.on_event("startup")
+async def startup_event():
+    init()
+    
 @app.get("/", response_class=HTMLResponse)
 async def get_form():
     return """
@@ -61,13 +62,10 @@ async def get_form():
 #async def predict(raw_data: str = Form(...)):
 #    prediction = make_inference(raw_data, tokenise, model)
 #    return {"Prédiction": prediction}
-@app.on_event("startup")
-async def startup_event():
-    init()
 
 @app.post("/predict", response_class=HTMLResponse)
 async def predict(raw_data: str = Form(...)):
-    prediction = make_inference(raw_data, tokenise, model)[0][0]  # assuming make_inference returns a prediction in this format
+    prediction = make_inference(raw_data, tokenise, model)
     if prediction < 0.4:
         sentiment = "good"
     elif prediction > 0.6:
