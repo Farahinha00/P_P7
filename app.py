@@ -4,14 +4,22 @@ from fastapi.responses import HTMLResponse
 import tensorflow as tf
 import joblib
 from script_inf import make_inference
+from urllib.request import urlretrieve
 
 app = FastAPI()
 
 model = None
 tokenise = None
+# Define the URL and the filename
+url1 = "https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T121951-1176e6b9/tokenizer.pkl"
+filename1 = "tokenizer"
+# Define the URL and the filename
+url2 = "https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T121943-79cc729e/mon_best_model.h5"
+filename2 = "mon_best_model"
+# Download the file
+urlretrieve(url2, filename2)
+urlretrieve(url1, filename1)
 
-model_file = "mon_best_model.h5"
-tokenizer_file = "tokenizer.pkl"
 
 def download_file(url, filename):
     if not os.path.exists(filename):
@@ -21,11 +29,11 @@ def download_file(url, filename):
 def init():
     global model, tokenise
 
-    download_file("https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T121951-1176e6b9/tokenizer.pkl", tokenizer_file)
-    download_file("https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T121943-79cc729e/mon_best_model.h5", model_file)
+    download_file("https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T121951-1176e6b9/tokenizer.pkl", filename1)
+    download_file("https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T121943-79cc729e/mon_best_model.h5", filename2)
 
-    tokenise = joblib.load(tokenizer_file)
-    model = tf.keras.models.load_model(model_file)
+    tokenise = joblib.load(filename1)
+    model = tf.keras.models.load_model(filename2)
 
 # Événement de démarrage pour exécuter la fonction init
 
