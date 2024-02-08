@@ -23,7 +23,6 @@ urlretrieve(url1, filename1)
 
 def download_file(url, filename):
     if not os.path.exists(filename):
-        from urllib.request import urlretrieve
         urlretrieve(url, filename)
 
 def init():
@@ -36,10 +35,6 @@ def init():
     model = tf.keras.models.load_model(filename2)
 
 # Événement de démarrage pour exécuter la fonction init
-
-@app.on_event("startup")
-async def startup_event():
-    init()
     
 @app.get("/", response_class=HTMLResponse)
 async def get_form():
@@ -58,7 +53,10 @@ async def get_form():
 #async def predict(raw_data: str = Form(...)):
 #    prediction = make_inference(raw_data, tokenise, model)
 #    return {"Prédiction": prediction}
-
+@app.on_event("startup")
+async def startup_event():
+    init()
+    
 @app.post("/predict", response_class=HTMLResponse)
 async def predict(raw_data: str = Form(...)):
     prediction = make_inference(raw_data, tokenise, model)
