@@ -1,45 +1,33 @@
+import os
 from fastapi import FastAPI, Form
 from fastapi.responses import HTMLResponse
 import tensorflow as tf
 import joblib
-from script_inf import make_inference  # Assurez-vous que script_inf.py est dans le même dossier
-#from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
-from urllib.request import urlretrieve
+from script_inf import make_inference
+
 app = FastAPI()
 
-# Define the URL and the filename
-url1 = "https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T121951-1176e6b9/tokenizer.pkl"
-filename1 = "tokenizer"
-# Define the URL and the filename
-url2 = "https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T121943-79cc729e/mon_best_model.h5"
-filename2 = "mon_best_model"
-# Download the file
-urlretrieve(url2, filename2)
-urlretrieve(url1, filename1)
-
-# Déclaration des variables globales
 model = None
 tokenise = None
-#ws = Workspace.from_config()
+
+model_file = "mon_best_model.h5"
+tokenizer_file = "tokenizer.pkl"
+
+def download_file(url, filename):
+    if not os.path.exists(filename):
+        from urllib.request import urlretrieve
+        urlretrieve(url, filename)
+
 def init():
-    global model
-    global tokenise
+    global model, tokenise
 
-    try:
-#        # Chargez le tokenizer
-        tokenise = joblib.load(filename1)
-    except Exception as e:
-        print(f"Erreur lors du chargement du tokenizer : {e}")
-        
-    try:
-        # Chargez le modèle Keras
-        model = tf.keras.models.load_model(filename2)
-    except Exception as e:
-        print(f"Erreur lors du chargement du modèle Keras : {e}")
+    download_file("https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T121951-1176e6b9/tokenizer.pkl", tokenizer_file)
+    download_file("https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T121943-79cc729e/mon_best_model.h5", model_file)
 
+    tokenise = joblib.load(tokenizer_file)
+    model = tf.keras.models.load_model(model_file)
 
 # Événement de démarrage pour exécuter la fonction init
-
 
 @app.on_event("startup")
 async def startup_event():
