@@ -12,13 +12,13 @@ model = None
 tokenise = None
 # Define the URL and the filename
 url1 = "https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T121951-1176e6b9/tokenizer.pkl"
-filename1 = "tokenizer"
+#filename1 = "tokenizer"
 # Define the URL and the filename
 url2 = "https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T121943-79cc729e/mon_best_model.h5"
-filename2 = "mon_best_model"
+#filename2 = "mon_best_model"
 # Download the file
-urlretrieve(url2, filename2)
-urlretrieve(url1, filename1)
+#urlretrieve(url2, filename2)
+#urlretrieve(url1, filename1)
 
 
 def download_file(url, filename):
@@ -28,11 +28,11 @@ def download_file(url, filename):
 def init():
     global model, tokenise
 
-    download_file("https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T121951-1176e6b9/tokenizer.pkl", filename1)
-    download_file("https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T121943-79cc729e/mon_best_model.h5", filename2)
+    #download_file("https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T121951-1176e6b9/tokenizer.pkl", filename1)
+    #download_file("https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T121943-79cc729e/mon_best_model.h5", filename2)
 
-    tokenise = joblib.load(filename1)
-    model = tf.keras.models.load_model(filename2)
+    tokenise = joblib.load(url1)
+    model = tf.keras.models.load_model(url2)
 
 # Événement de démarrage pour exécuter la fonction init
     
