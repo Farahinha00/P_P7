@@ -2,9 +2,14 @@ import os
 from fastapi import FastAPI, Form
 from fastapi.responses import HTMLResponse
 import tensorflow as tf
-import joblib
+#import joblib
 from script_inf import make_inference
 from urllib.request import urlretrieve
+import pickle
+
+def load_with_pickle(filename):
+    with open(filename, 'rb') as file:  # 'rb' pour lire en mode binaire
+        return pickle.load(file)
 
 app = FastAPI()
 
@@ -31,7 +36,7 @@ def init():
     download_file("https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T121951-1176e6b9/tokenizer.pkl", filename1)
     download_file("https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T121943-79cc729e/mon_best_model.h5", filename2)
 
-    tokenise = joblib.load(filename1)
+    tokenise = load_with_pickle(filename1)
     model = tf.keras.models.load_model(filename2)
 
 # Événement de démarrage pour exécuter la fonction init
