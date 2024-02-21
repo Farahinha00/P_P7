@@ -9,3 +9,4 @@ azure-storage-blob
 azureml.core
 azureml-mlflow
 python-multipart
+azure-monitor-opentelemetry --pre
