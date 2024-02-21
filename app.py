@@ -2,10 +2,23 @@ import os
 from fastapi import FastAPI, Form
 from fastapi.responses import HTMLResponse
 import tensorflow as tf
-#import joblib
+
 from script_inf import make_inference
 from urllib.request import urlretrieve
 import pickle
+from azure.monitor.opentelemetry import configure_azure_monitor
+from opentelemetry import trace
+from logging import getLogger, INFO
+
+load_dotenv()
+
+configure_azure_monitor(
+    connection_string=os.getenv("InstrumentationKey=bfb9f0a9-76e7-4661-a709-022dacea56fc;IngestionEndpoint=https://francecentral-1.in.applicationinsights.azure.com/;LiveEndpoint=https://francecentral.livediagnostics.monitor.azure.com/")
+)
+
+tracer = trace.get_tracer(__name__,
+                          tracer_provider=get_tracer_provider())
+logger = getLogger(__name__)
 
 def load_with_pickle(filename):
     with open(filename, 'rb') as file:  # 'rb' pour lire en mode binaire
@@ -57,10 +70,6 @@ async def get_form():
     </html>
     """
     
-#@app.post("/predict")
-#async def predict(raw_data: str = Form(...)):
-#    prediction = make_inference(raw_data, tokenise, model)
-#    return {"Prédiction": prediction}
 
     
 @app.post("/predict", response_class=HTMLResponse)
