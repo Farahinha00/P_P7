@@ -48,8 +48,8 @@ def download_file(url, filename):
 def init():
     global model, tokenise
 
-    download_file("https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T121951-1176e6b9/tokenizer.pkl", filename1)
-    download_file("https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T121943-79cc729e/mon_best_model.h5", filename2)
+    #download_file("https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T121951-1176e6b9/tokenizer.pkl", filename1)
+    #download_file("https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T121943-79cc729e/mon_best_model.h5", filename2)
 
     tokenise = load_with_pickle(filename1)
     model = tf.keras.models.load_model(filename2)
