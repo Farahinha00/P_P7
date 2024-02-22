@@ -86,7 +86,7 @@ async def predict(raw_data: str = Form(...)):
         else:
             sentiment = "bad"
         logging.info(f"Received '{raw_data}' and predicted as '{sentiment}'")
-   response = f"""
+    response = f"""
     <html>
         <body>
             The tweet "{raw_data}" is {sentiment}.<br>
