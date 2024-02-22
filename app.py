@@ -61,8 +61,6 @@ async def startup_event():
 
 @app.get("/", response_class=HTMLResponse)
 async def get_form():
-    with tracer.start_as_current_span("get_form"):
-        logging.info("Displaying form")
     return """
     <html>
         <body>
