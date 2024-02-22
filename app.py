@@ -12,6 +12,7 @@ from opentelemetry import trace
 from logging import getLogger, INFO
 from dotenv import load_dotenv
 from opentelemetry.trace import get_tracer_provider
+import logging
 
 load_dotenv()
 
