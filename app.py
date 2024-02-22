@@ -9,6 +9,7 @@ import pickle
 from azure.monitor.opentelemetry import configure_azure_monitor
 from opentelemetry import trace
 from logging import getLogger, INFO
+from dotenv import load_dotenv
 
 load_dotenv()
 
