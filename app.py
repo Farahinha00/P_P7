@@ -58,12 +58,12 @@ def init():
 @app.on_event("startup")
 async def startup_event():
     with tracer.start_as_current_span("startup"):
-    init()
+        init()
 
 @app.get("/", response_class=HTMLResponse)
 async def get_form():
     with tracer.start_as_current_span("get_form")
-    logging.info("Displaying form")
+        logging.info("Displaying form")
     return """
     <html>
         <body>
@@ -80,12 +80,12 @@ async def get_form():
 @app.post("/predict", response_class=HTMLResponse)
 async def predict(raw_data: str = Form(...)):
     with tracer.start_as_current_span("predict"):
-    prediction = make_inference(raw_data, tokenise, model)
-    if prediction < 0.5:
-        sentiment = "good"
-    else:
-        sentiment = "bad"
-    logging.info(f"Received '{raw_data}' and predicted as '{sentiment}'")
+        prediction = make_inference(raw_data, tokenise, model)
+        if prediction < 0.5:
+            sentiment = "good"
+        else:
+            sentiment = "bad"
+        logging.info(f"Received '{raw_data}' and predicted as '{sentiment}'")
     response = f'The tweet "{raw_data}" is {sentiment}.'
 
     return response
