@@ -57,8 +57,7 @@ def init():
 # Événement de démarrage pour exécuter la fonction init
 @app.on_event("startup")
 async def startup_event():
-    with tracer.start_as_current_span("startup"):
-        init()
+    init()
 
 @app.get("/", response_class=HTMLResponse)
 async def get_form():
