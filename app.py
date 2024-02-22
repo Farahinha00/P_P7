@@ -10,6 +10,7 @@ from azure.monitor.opentelemetry import configure_azure_monitor
 from opentelemetry import trace
 from logging import getLogger, INFO
 from dotenv import load_dotenv
+from opentelemetry.trace import get_tracer_provider
 
 load_dotenv()
 
