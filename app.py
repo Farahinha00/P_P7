@@ -44,12 +44,14 @@ urlretrieve(url1, filename1)
 def download_file(url, filename):
     if not os.path.exists(filename):
         urlretrieve(url, filename)
+        while not os.path.exists(filename) or os.path.getsize(filename) == 0:
+            sleep(1)  # Attendre 1 seconde avant de vérifier à nouveau
 
 def init():
     global model, tokenise
 
-    #download_file("https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T121951-1176e6b9/tokenizer.pkl", filename1)
-    #download_file("https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T121943-79cc729e/mon_best_model.h5", filename2)
+    download_file("https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T121951-1176e6b9/tokenizer.pkl", filename1)
+    download_file("https://ocp73883544777.blob.core.windows.net/azureml/LocalUpload/240118T121943-79cc729e/mon_best_model.h5", filename2)
 
     tokenise = load_with_pickle(filename1)
     model = tf.keras.models.load_model(filename2)
