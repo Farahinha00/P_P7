@@ -57,10 +57,12 @@ def init():
 # Événement de démarrage pour exécuter la fonction init
 @app.on_event("startup")
 async def startup_event():
+    with tracer.start_as_current_span("startup"):
     init()
 
 @app.get("/", response_class=HTMLResponse)
 async def get_form():
+    with tracer.start_as_current_span("get_form")
     return """
     <html>
         <body>
@@ -76,13 +78,12 @@ async def get_form():
     
 @app.post("/predict", response_class=HTMLResponse)
 async def predict(raw_data: str = Form(...)):
+    with tracer.start_as_current_span("predict"):
     prediction = make_inference(raw_data, tokenise, model)
-    if prediction < 0.4:
+    if prediction < 0.5:
         sentiment = "good"
-    elif prediction > 0.6:
-        sentiment = "bad"
     else:
-        sentiment = "neutral"
+        sentiment = "bad"
 
     response = f'The tweet "{raw_data}" is {sentiment}.'
 
