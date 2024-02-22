@@ -2,6 +2,7 @@ import os
 from fastapi import FastAPI, Form
 from fastapi.responses import HTMLResponse
 import tensorflow as tf
+from time import sleep
 
 from script_inf import make_inference
 from urllib.request import urlretrieve
