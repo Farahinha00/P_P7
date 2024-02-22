@@ -62,7 +62,7 @@ async def startup_event():
 
 @app.get("/", response_class=HTMLResponse)
 async def get_form():
-    with tracer.start_as_current_span("get_form")
+    with tracer.start_as_current_span("get_form"):
         logging.info("Displaying form")
     return """
     <html>
@@ -86,7 +86,16 @@ async def predict(raw_data: str = Form(...)):
         else:
             sentiment = "bad"
         logging.info(f"Received '{raw_data}' and predicted as '{sentiment}'")
-    response = f'The tweet "{raw_data}" is {sentiment}.'
-
+   response = f"""
+    <html>
+        <body>
+            The tweet "{raw_data}" is {sentiment}.<br>
+            <form action="/report" method="post">
+                <input type="hidden" name="raw_data" value="{raw_data}" />
+                <input type="submit" value="Not Confirm" />
+            </form>
+        </body>
+    </html>
+    """
     return response
 
