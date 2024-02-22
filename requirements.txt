@@ -10,3 +10,4 @@ azureml.core
 azureml-mlflow
 python-multipart
 azure-monitor-opentelemetry --pre
+python-dotenv
