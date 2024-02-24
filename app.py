@@ -100,3 +100,12 @@ async def predict(raw_data: str = Form(...)):
     """
     return response
 
+
+@app.post("/report")
+async def report(raw_data: str = Form(...)):
+    # Logique d'envoi d'alerte à Azure Application Insights
+    logging.warning(f"Non-confirm prediction reported for: '{raw_data}'")
+    # Vous pouvez ici ajouter des détails supplémentaires pour Azure Insights si nécessaire
+    return {"message": "Report received, thank you for your feedback!"}
+
+
